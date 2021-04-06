@@ -4,5 +4,5 @@ module.exports = {
   },
   modulePathIgnorePatterns: ['e2e'],
   collectCoverage: true,
-  collectCoverageFrom: ['src/*.js']
+  collectCoverageFrom: ['src/functions.js']
 };

@@ -7,10 +7,11 @@ describe('e2e' ,() => {
   // 2
   beforeAll(async () => {
     browser = await puppeteer.launch({
-      headless: false
+      headless: false,
+      slowMo: 100,
     });
     page = await browser.newPage();
-    await page.goto('http://localhost:5000/');
+    await page.goto('http://localhost:3030/');
   });
 
   // 3
