@@ -11,7 +11,9 @@ describe("e2e", () => {
       slowMo: 100,
     });
     page = await browser.newPage();
+
     await page.goto("http://localhost:3030/");
+
   });
 
   // 3
