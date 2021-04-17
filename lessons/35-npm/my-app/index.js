@@ -1,4 +1,5 @@
 // import functions from your package
-const { smartSearch } = require('[NAME_OF_YOUR_PACKAGE]')
+const { smartSearch, sum } = require('npolyakov')
 
 console.log(smartSearch(['Smith', 'John'], 'John'))
+console.log(sum(5, 8))

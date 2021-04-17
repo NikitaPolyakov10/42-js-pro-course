@@ -1,0 +1,24 @@
+{
+  "name": "npolyakov-package2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint",
+    "eslint-fix": "eslint --fix --ext .js"
+  },
+  "author": "npolyakov",
+  "license": "ISC",
+  "dependencies": {
+    "npolyakov": "^1.1.0-beta"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1"
+  }
+}
