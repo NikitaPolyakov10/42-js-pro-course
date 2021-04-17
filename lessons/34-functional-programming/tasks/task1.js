@@ -1,12 +1,28 @@
-const createValidation = () => {}
+const createValidation = (...args) => (value) => {
+  const result = args
+    .map((validator) => {
+      return validator(value);
+    })
+    .filter((item) => item);
+  return result.length > 0 ? result : null;
+};
 
-const createValidator = () => {}
+const createValidator = (method, errMsg) => (value) => {
+  return method(value) ? null : errMsg;
+};
 
-const hasEmail = () => {}
+const hasEmail = (value) => {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(value).toLowerCase());
+};
 
-const hasNoEmpty = () => {}
+const hasNoEmpty = (value) => {
+  return value.length > 0;
+};
 
-const hasAdult = () => {}
+const hasAdult = (value) => {
+  return value >= 18;
+};
 
 module.exports = {
   createValidation,
@@ -14,4 +30,4 @@ module.exports = {
   hasEmail,
   hasNoEmpty,
   hasAdult,
-}
+};
