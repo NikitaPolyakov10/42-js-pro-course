@@ -13,13 +13,13 @@ class Counter extends React.Component {
     this.baseState = this.state;
   }
 
-  increment() {
+  increment= () => {
     this.setState({ value: this.state.value + 1 });
   }
-  decrement() {
+  decrement= () => {
     this.setState({ value: this.state.value - 1 });
   }
-  reset() {
+  reset = () => {
     this.setState(this.baseState);
   }
   render() {
@@ -29,19 +29,19 @@ class Counter extends React.Component {
         <div className="buttons-container">
           <button
             className="button plus-button"
-            onClick={this.increment.bind(this)}
+            onClick={this.increment}
           >
             <img className="plus-img img" src={plus}></img>
           </button>
           <button
             className="button refresh-button"
-            onClick={this.reset.bind(this)}
+            onClick={this.reset}
           >
             <img className="refresh-img img" src={refresh}></img>
           </button>
           <button
             className="button minus-button"
-            onClick={this.decrement.bind(this)}
+            onClick={this.decrement}
           >
             <img className="minus-img img" src={minus}></img>
           </button>
