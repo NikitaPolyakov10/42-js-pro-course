@@ -1,0 +1,50 @@
+.counter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 330px;
+  width: 100%;
+  border: 1px solid black;
+  margin: 10px 20px;
+}
+.counter-value {
+  display: flex;
+  align-items: center;
+  font-size: 105px;
+  text-align: center;
+  vertical-align: center;
+  min-height: 200px;
+  color: grey;
+}
+.buttons-container {
+  display: flex;
+}
+.button {
+  width: 110px;
+  height: 90px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+.plus-button {
+  background-color: #39da39;
+}
+.plus-button:hover {
+  background-color: #39da39ba;
+}
+.minus-button {
+  background-color: #c80303;
+}
+.minus-button:hover {
+  background-color: #c80303ad;
+}
+.refresh-button {
+  background-color: #ffa500bf;
+}
+.refresh-button:hover {
+  background-color: #ffa50094;
+}
+.img {
+  width: 40px;
+  height: 40px;
+}
