@@ -1,0 +1,25 @@
+.emoji-row {
+  padding: 0.5rem 1rem;
+  display: flex;
+  justify-content: flex-start;
+  transition: 0.1s ease-in;
+  border: 1px solid rgb(118, 118, 118);
+  border-bottom: none;
+}
+.emoji-row:last-child {
+  border-bottom: 1px solid rgb(118, 118, 118);
+}
+.emoji-row:hover {
+  background-color: rgb(234, 226, 226);
+  cursor: pointer;
+  transform: scale(1.1);
+  border-bottom: unset;
+  border: 1px solid rgb(118, 118, 118);
+}
+.emoji-img {
+  margin-right: 10px;
+  align-self: center;
+}
+.emoji-title {
+  font-size: 20px;
+}

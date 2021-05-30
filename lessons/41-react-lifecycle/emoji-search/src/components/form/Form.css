@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  margin: 0 auto;
+  padding-top: 24px;
+  width: 400px;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.form-row {
+  display: flex;
+}
+.search-input {
+  height: 40px;
+  font-size: 18px;
+  padding: 0 1rem;
+  flex: 1;
+}
+.select-input {
+  height: 40px;
+  font-size: 18px;
+  margin-left: 0.5rem;
+  width: 100px;
+}
