@@ -1,0 +1,24 @@
+.posts-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.button {
+  display: block;
+  margin: 0 auto;
+  width: 100px;
+  height: 30px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s ease-in;
+}
+.button:hover {
+  box-shadow: 1px 1px 3px #393939b5;
+  background-color: rgba(0, 0, 0, 0.517);
+}
+.switch-buttons {
+  display: flex;
+  justify-content: center;
+}
