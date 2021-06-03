@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import './PostsContainer.css'
 import Post from '../post/Post'
 import SwitchButton from '../switchButton/SwitchButton'
@@ -32,6 +32,10 @@ function PostsContainer() {
         setSliceCount(sliceCount + 4);
     }
 
+    const memoPosts = useMemo(() => {
+       return posts.slice(0, sliceCount);
+    }, [posts, sliceCount]);
+
     if (loading) {
         return <CircularIndeterminate/>
     }
@@ -47,7 +51,7 @@ function PostsContainer() {
             </div>
             <div className='posts-container'>
                 <Grid container spacing={1}>
-                    {posts.slice(0, sliceCount).map((item) => {
+                    {memoPosts.map((item) => {
                         return (
                             <Grid item xs={6} key={item.id}>
                                 <Post title={item.title} text={item.body} user={item.user} />
