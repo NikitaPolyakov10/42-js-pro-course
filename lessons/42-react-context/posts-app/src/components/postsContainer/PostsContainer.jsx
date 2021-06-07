@@ -11,7 +11,7 @@ function PostsContainer() {
     const [error, setError] = useState(false);
     const [sliceCount, setSliceCount] = useState(5);
 
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
     useEffect(() => {
             try {
@@ -42,11 +42,11 @@ function PostsContainer() {
     }
 
     return (
-        <div className={`${theme} posts-container`}>
+        <div className={darkMode ? 'posts-container dark' : 'posts-container light'}>
             <div className="header">
                 <h3 className='header-title'>Posts App</h3>
                 <div className='switch-button'>
-                    <input type="checkbox" id="switch" onClick={toggleTheme}/>
+                    <input type="checkbox" id="switch" onClick={toggleDarkMode}/>
                     <label htmlFor="switch"></label>
                 </div>
             </div>

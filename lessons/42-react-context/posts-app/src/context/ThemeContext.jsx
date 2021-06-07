@@ -3,14 +3,14 @@ import { createContext, useState, useCallback } from "react";
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
-  
-  const toggleTheme = useCallback(() => {
-    setTheme(theme === "light" ? "dark" : "light");
-  }, [theme]);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = useCallback(() => {
+      setDarkMode(!darkMode);
+  })
   
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>
       {children}
     </ThemeContext.Provider>
   );
