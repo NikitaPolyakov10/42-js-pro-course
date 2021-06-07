@@ -7,7 +7,7 @@ export const ThemeProvider = ({ children }) => {
 
   const toggleDarkMode = useCallback(() => {
       setDarkMode(!darkMode);
-  })
+  }, [darkMode])
   
   return (
     <ThemeContext.Provider value={{ darkMode, toggleDarkMode }}>

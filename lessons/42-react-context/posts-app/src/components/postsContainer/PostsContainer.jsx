@@ -4,6 +4,7 @@ import Post from '../Post/Post'
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
 import {ThemeContext} from '../../context/ThemeContext'
+import SwitchButton from '../Button/SwitchButton'
 
 function PostsContainer() {
     const [posts, setPosts] = useState([]);
@@ -46,8 +47,7 @@ function PostsContainer() {
             <div className="header">
                 <h3 className='header-title'>Posts App</h3>
                 <div className='switch-button'>
-                    <input type="checkbox" id="switch" onClick={toggleDarkMode}/>
-                    <label htmlFor="switch"></label>
+                    <SwitchButton changeTheme={toggleDarkMode}/>
                 </div>
             </div>
             <div className='posts'>
