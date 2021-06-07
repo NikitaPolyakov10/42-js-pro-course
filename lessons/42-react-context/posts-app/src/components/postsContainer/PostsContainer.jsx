@@ -1,35 +1,33 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import './PostsContainer.css'
-import Post from '../post/Post'
-import SwitchButton from '../switchButton/SwitchButton'
-import CircularIndeterminate from '../loader/Loader';
-import Container from '@material-ui/core/Container';
-import { Button, Grid, Typography } from "@material-ui/core";
+import Post from '../Post/Post'
+import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
+import {ThemeContext} from '../../context/ThemeContext'
 
 function PostsContainer() {
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [sliceCount, setSliceCount] = useState(4);
+    const [sliceCount, setSliceCount] = useState(5);
+
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     useEffect(() => {
-        const getPosts = async () => {
             try {
                 setLoading(true);
-                const fetchData = await fetch('http://jsonplaceholder.typicode.com/posts?_expand=user');
-                const response = await fetchData.json();
-                setPosts(response)
+                fetch('http://jsonplaceholder.typicode.com/posts?_expand=user')
+                .then(response => response.json())
+                .then(result => setPosts(result))
                 setLoading(false);
             } catch (e) {
                 setLoading(false);
                 setError(e?.message || e)
             }
-        }
-        getPosts();
     }, [])
 
     const showMorePosts = () => {
-        setSliceCount(sliceCount + 4);
+        setSliceCount(sliceCount + 5);
     }
 
     const memoPosts = useMemo(() => {
@@ -37,33 +35,34 @@ function PostsContainer() {
     }, [posts, sliceCount]);
 
     if (loading) {
-        return <CircularIndeterminate/>
+        return <Loader/>
     }
     if (!loading && error) {
-        return <div><h4 style={{ color: 'red', textAlign: 'center' }}>Error fetch data. Please try again later.</h4></div>
+        return <Error/>
     }
 
     return (
-        <Container maxWidth="xl">
+        <div className={`${theme} posts-container`}>
             <div className="header">
-                <Typography variant='h3'>Posts App</Typography>
-                <div className='switch-buttons'><SwitchButton /></div>
+                <h3 className='header-title'>Posts App</h3>
+                <div className='switch-button'>
+                    <input type="checkbox" id="switch" onClick={toggleTheme}/>
+                    <label htmlFor="switch"></label>
+                </div>
             </div>
-            <div className='posts-container'>
-                <Grid container spacing={1}>
-                    {memoPosts.map((item) => {
-                        return (
-                            <Grid item xs={6} key={item.id}>
-                                <Post title={item.title} text={item.body} user={item.user} />
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+            <div className='posts'>
+            {memoPosts.map((item) => {
+                return (
+                    <div className='post-item' key={item.id}>
+                        <Post title={item.title} text={item.body} user={item.user}/>
+                    </div>
+                )
+                })}
             </div>
             <div className="footer">
-                <Button variant="contained" color="primary" onClick={showMorePosts}>Show More</Button>
+                <button className='footer-button' onClick={showMorePosts}>Show More</button>
             </div>
-        </Container>
+        </div>
     )
 }
 
