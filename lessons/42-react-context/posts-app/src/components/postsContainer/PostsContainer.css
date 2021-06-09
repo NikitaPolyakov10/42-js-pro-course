@@ -57,4 +57,6 @@
 }
 .posts-container {
   padding: 10px;
+  overflow: hidden;
+  position: relative;
 }

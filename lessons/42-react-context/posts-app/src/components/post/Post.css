@@ -32,3 +32,15 @@
   color: rgb(41, 41, 241);
   cursor: pointer;
 }
+.post-details-link {
+  text-decoration: none;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 5px;
+  background-color: #483b3b;
+  color: #fff;
+  transition: 0.2s ease-in;
+}
+.post-details-link:hover {
+  background-color: rgba(0, 0, 0, 0.517);
+}

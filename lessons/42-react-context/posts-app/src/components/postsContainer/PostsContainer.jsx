@@ -54,7 +54,7 @@ function PostsContainer() {
             {memoPosts.map((item) => {
                 return (
                     <div className='post-item' key={item.id}>
-                        <Post title={item.title} text={item.body} user={item.user}/>
+                        <Post title={item.title} text={item.body} user={item.user} id={item.id}/>
                     </div>
                 )
                 })}
