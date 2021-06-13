@@ -1,32 +1,46 @@
 import React, {useState, useEffect} from 'react'
 import {useParams} from "react-router-dom";  
+import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
 
 const PostDetails = () => {
-    const [post, setPost] = useState([]);
-    const [comment, setComment] = useState([])
+    const [data, setData] = useState({});
+    const dataComments = data.comments || [];
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     const { postId } = useParams();
   
     useEffect(() => {
-      fetch(`http://jsonplaceholder.typicode.com/posts/${postId}/comments`)
+      setLoading(true);
+      fetch(`https://jsonplaceholder.typicode.com/posts/${postId}?_embed=comments`)
         .then((resp) => resp.json())
-        .then((res) => setComment(res));
+        .then((res) => setData(res))
+        .catch((err) => {
+          setError(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     }, [postId])
-    
-    useEffect(() => {
-      fetch(`http://jsonplaceholder.typicode.com/posts/${postId}`)
-        .then((resp) => resp.json())
-        .then((res) => setPost(res));
-    }, [postId])
+
+    if(loading) {
+      return <Loader/>
+    }
+
+    if(error) {
+      return <Error/>
+    }
+
     return (
       <>
       <div>
         <h2>Post Details</h2>
-        <h3>{post.title}</h3>
-        <div>{post.body}</div>
+        <h3>{data.title}</h3>
+        <div>{data.body}</div>
       </div>
       <div>
       <h2>Post Comments</h2>
-        {comment.map((item) => {
+        {dataComments.map((item) => {
           return (
             <div key={item.id}>
               <h3>{item.name}</h3>
@@ -35,7 +49,6 @@ const PostDetails = () => {
             </div>
           )
         })}
-
       </div>
       </>
     ) 

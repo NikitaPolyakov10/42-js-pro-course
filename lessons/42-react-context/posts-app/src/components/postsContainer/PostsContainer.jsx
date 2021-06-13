@@ -8,11 +8,11 @@ import SwitchButton from '../Button/SwitchButton'
 
 function PostsContainer() {
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [sliceCount, setSliceCount] = useState(5);
 
-    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     useEffect(() => {
             try {
@@ -21,9 +21,9 @@ function PostsContainer() {
                 .then(response => response.json())
                 .then(result => setPosts(result))
                 setLoading(false);
-            } catch (e) {
+            } catch (err) {
                 setLoading(false);
-                setError(e?.message || e)
+                setError(err)
             }
     }, [])
 
@@ -43,11 +43,11 @@ function PostsContainer() {
     }
 
     return (
-        <div className={darkMode ? 'posts-container dark' : 'posts-container light'}>
+        <div className={theme === 'light' ? 'posts-container light' : 'posts-container dark'}>
             <div className="header">
                 <h3 className='header-title'>Posts App</h3>
                 <div className='switch-button'>
-                    <SwitchButton changeTheme={toggleDarkMode}/>
+                    <SwitchButton changeTheme={toggleTheme}/>
                 </div>
             </div>
             <div className='posts'>

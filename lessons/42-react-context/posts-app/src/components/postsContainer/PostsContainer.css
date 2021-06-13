@@ -2,21 +2,6 @@
   background-color: #000;
   color: #fff;
 }
-.dark .modal-content {
-  background-color: #000;
-  color: #fff;
-}
-.dark span {
-  color: #fff;
-}
-.dark button {
-  background-color: #fff;
-  color: #000;
-}
-.dark button:hover {
-  background-color: rgba(255, 255, 255, 0.689);
-  color: #000;
-}
 .light {
   background-color: #fff;
   color: #000;

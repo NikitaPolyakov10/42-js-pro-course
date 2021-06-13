@@ -57,3 +57,12 @@
   box-shadow: 1px 1px 3px #393939b5;
   background-color: rgba(0, 0, 0, 0.517);
 }
+
+.dark {
+  background-color: #000;
+  color: #fff;
+}
+.light {
+  background-color: #fff;
+  color: #000;
+}
