@@ -1,4 +1,4 @@
-const THEME_ENUMS = ["light", "dark"];
+const THEMES = ["light", "dark"];
 
 const initialState = {
   theme: "",
@@ -7,9 +7,9 @@ const initialState = {
 const themeReducer = (state = initialState, action) => {
   switch (action.type) {
     case "SET_THEME": {
-      const theme = THEME_ENUMS.includes(action.payload.toLowerCase())
+      const theme = THEMES.includes(action.payload.toLowerCase())
         ? action.payload
-        : THEME_ENUMS[0];
+        : THEMES[0];
       return {
         ...state,
         theme,
