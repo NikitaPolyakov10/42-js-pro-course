@@ -1,21 +1,21 @@
+import { ADD_TODO, TOGGLE_TODO, DELETE_TODO } from './actions';
+
+const localStorageTodos = (localStorage.getItem('todoList') && JSON.parse(localStorage.getItem('todoList'))) || [];
+
 const initialState = {
-  todos: [],
+  todos: localStorageTodos,
 };
 
 export const todoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'ADD_TODO': {
-      const newTodo = {
-        id: new Date().valueOf().toString(),
-        text: action.payload,
-        completed: false,
-      };
+    case ADD_TODO: {
+      const newTodos = state.todos.concat(action.payload);
       return {
         ...state,
-        todos: [newTodo].concat(state.todos),
+        todos: newTodos,
       };
     }
-    case 'TOGGLE_TODO': {
+    case TOGGLE_TODO: {
       return {
         ...state,
         todos: state.todos.map((item) => {
@@ -29,7 +29,7 @@ export const todoReducer = (state = initialState, action) => {
         }),
       };
     }
-    case 'DELETE_TODO': {
+    case DELETE_TODO: {
       return {
         ...state,
         todos: state.todos.filter((item) => item.id !== action.payload),

@@ -1,35 +1,36 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addTodo, deleteTodo, toggleTodo, changeFilter } from '../../redux/actions'
+import { getTodos, getFilter } from '../../redux/selector'
 import './Todos.css'
 
 
 const Todos = () => {
     const [todoText, setTodoText] = useState('');
 
-    const todos = useSelector((state) => state.todoReducer.todos) || [];
-    const filter = useSelector((state) => state.filterReducer.filter) || '';
+    const todos = useSelector(getTodos) || [];
+    const filter = useSelector(getFilter) || '';
     
     const dispatch = useDispatch();
 
-    const handleText = (e) => {
+    const handleText = useCallback((e) => {
         setTodoText(e.target.value);
-    }
+    }, [])
 
-    const onAddTodo = () => {
+    const onAddTodo = useCallback(() => {
         dispatch(addTodo(todoText));
         setTodoText('')
-    }
+    }, [dispatch, todoText])
 
-    const onDeleteTodo = (id) => {
+    const onDeleteTodo = useCallback((id) => {
         dispatch(deleteTodo(id))
-    }
+    }, [dispatch])
 
-    const onToggleTodo = (id) => {
+    const onToggleTodo = useCallback((id) => {
         dispatch(toggleTodo(id))
-    }
+    }, [dispatch])
 
-    const filterTodos = (todos, filter) => {
+    const filterTodos = useCallback(() => {
         switch(filter) {
             case 'completed': 
                 return todos.filter((item) => item.completed)
@@ -38,9 +39,9 @@ const Todos = () => {
             default:
                 return todos
         }
-    }
+    }, [todos, filter])
 
-    const filteredTodos = filterTodos(todos, filter);
+    const filteredTodos = useMemo(() => (filterTodos()), [filterTodos]);
 
     return (
         <div className='todos-container'>
