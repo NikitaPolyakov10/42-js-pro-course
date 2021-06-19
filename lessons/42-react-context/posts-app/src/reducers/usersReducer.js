@@ -16,7 +16,7 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        posts: action.payload,
+        users: action.payload,
         error: "",
       };
     }
@@ -24,7 +24,7 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        posts: [],
+        users: [],
         error: action.payload,
       };
     }

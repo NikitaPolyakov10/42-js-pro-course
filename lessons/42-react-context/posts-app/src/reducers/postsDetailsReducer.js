@@ -1,6 +1,6 @@
 const initialState = {
   isLoading: false,
-  postsDetails: [],
+  postsDetails: {},
   error: "",
 };
 
@@ -24,7 +24,7 @@ const postsDetailsReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        postsDetails: [],
+        postsDetails: {},
         error: action.payload,
       };
     }

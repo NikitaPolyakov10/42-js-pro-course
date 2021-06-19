@@ -18,11 +18,12 @@ const fetchUsersFailure = (error) => {
   };
 };
 
-export const fetchUsers = () => async (dispatch) => {
+export const fetchUsers = () => (dispatch) => {
   try {
     dispatch(fetchUsersRequest());
-    const { data } = await fetch("http://jsonplaceholder.typicode.com/users");
-    dispatch(fetchUsersSuccess(data));
+    fetch("http://jsonplaceholder.typicode.com/users")
+      .then((resp) => resp.json())
+      .then((res) => dispatch(fetchUsersSuccess(res)));
   } catch (e) {
     dispatch(fetchUsersFailure(e));
   }

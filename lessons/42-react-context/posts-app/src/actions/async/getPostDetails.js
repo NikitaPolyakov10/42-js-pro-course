@@ -1,30 +1,31 @@
 const fetchPostsDetailsRequest = () => {
   return {
-    type: 'FETCH_POSTSDETAILS_REQUEST',
+    type: "FETCH_POSTSDETAILS_REQUEST",
   };
 };
 
 const fetchPostsDetailsSuccess = (postsDetails) => {
   return {
-    type: 'FETCH_POSTSDETAILS_SUCCESS',
+    type: "FETCH_POSTSDETAILS_SUCCESS",
     payload: postsDetails,
   };
 };
 
 const fetchPostsDetailsFailure = (error) => {
   return {
-    type: 'FETCH_POSTSDETAILS_FAILURE',
+    type: "FETCH_POSTSDETAILS_FAILURE",
     payload: error,
   };
 };
 
-export const fetchPostsDetails = () => async (dispatch) => {
+export const fetchPostsDetails = (postId) => (dispatch) => {
   try {
     dispatch(fetchPostsDetailsRequest());
-    const { data } = await fetch(
+    fetch(
       `https://jsonplaceholder.typicode.com/posts/${postId}?_embed=comments`
-    );
-    dispatch(fetchPostsDetailsSuccess(data));
+    )
+      .then((resp) => resp.json())
+      .then((res) => dispatch(fetchPostsDetailsSuccess(res)));
   } catch (e) {
     dispatch(fetchPostsDetailsFailure(e));
   }

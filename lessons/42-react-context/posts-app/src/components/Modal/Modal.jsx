@@ -5,8 +5,8 @@ import { useContext } from 'react';
 
 
 const Modal = ({author,open, close}) => {
-    const {theme} = useContext(ThemeContext)
-    const currentTheme = theme === 'light' ? 'light' : 'dark'
+    const {storeTheme} = useContext(ThemeContext)
+    const currentTheme = storeTheme === 'light' ? 'light' : 'dark'
 
     return (
         <div className={open ? 'modal active' : 'modal'} onClick={close}>

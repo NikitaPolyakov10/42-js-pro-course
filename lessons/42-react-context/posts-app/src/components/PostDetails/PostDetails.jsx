@@ -1,33 +1,30 @@
-import React, {useState, useEffect} from 'react'
-import {useParams} from "react-router-dom";  
+import React, { useEffect } from 'react'
+import {useParams} from "react-router-dom";
+import { fetchPostsDetails } from '../../actions/async/getPostDetails';
+import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
 
+
 const PostDetails = () => {
-    const [data, setData] = useState({});
-    const dataComments = data.comments || [];
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
     const { postId } = useParams();
+
+    const dispatch = useDispatch();
+
+    const storePostsDetails = useSelector((state) => state.postsDetailsReducer.postsDetails);
+    const storePostsDetailsComments = storePostsDetails.comments || [];
+    const storeLoading = useSelector((state) => state.postsDetailsReducer.isLoading)
+    const storeError = useSelector((state) => state.postsDetailsReducer.error)
   
     useEffect(() => {
-      setLoading(true);
-      fetch(`https://jsonplaceholder.typicode.com/posts/${postId}?_embed=comments`)
-        .then((resp) => resp.json())
-        .then((res) => setData(res))
-        .catch((err) => {
-          setError(err);
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    }, [postId])
+      dispatch(fetchPostsDetails(postId))
+    }, [dispatch, postId])
 
-    if(loading) {
+    if(storeLoading) {
       return <Loader/>
     }
 
-    if(error) {
+    if(!storeLoading && storeError) {
       return <Error/>
     }
 
@@ -35,12 +32,12 @@ const PostDetails = () => {
       <>
       <div>
         <h2>Post Details</h2>
-        <h3>{data.title}</h3>
-        <div>{data.body}</div>
+        <h3>{storePostsDetails.title}</h3>
+        <div>{storePostsDetails.body}</div>
       </div>
       <div>
       <h2>Post Comments</h2>
-        {dataComments.map((item) => {
+        {storePostsDetailsComments.map((item) => {
           return (
             <div key={item.id}>
               <h3>{item.name}</h3>

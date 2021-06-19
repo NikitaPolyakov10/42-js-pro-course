@@ -3,9 +3,8 @@ import { ThemeContext } from "../../context/ThemeContext"
 import './Wrapper.css'
 
 const Wrapper = ({children}) => {
-    const {theme} = useContext(ThemeContext);
-    const currentTheme = theme === 'light' ? 'light' : 'dark'
-
+    const { storeTheme } = useContext(ThemeContext);
+    const currentTheme = storeTheme === 'light' ? 'light' : 'dark'
 
     return (
         <div className={'wrapper ' + currentTheme}>

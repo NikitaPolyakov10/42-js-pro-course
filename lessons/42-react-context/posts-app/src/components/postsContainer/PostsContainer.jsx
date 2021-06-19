@@ -1,53 +1,50 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
-import './PostsContainer.css'
+import { fetchPosts } from "../../actions/async/getPosts";
+import {useSelector, useDispatch} from 'react-redux'
+import {ThemeContext} from '../../context/ThemeContext'
 import Post from '../Post/Post'
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
-import {ThemeContext} from '../../context/ThemeContext'
 import SwitchButton from '../Button/SwitchButton'
+import './PostsContainer.css'
+
 
 function PostsContainer() {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
     const [sliceCount, setSliceCount] = useState(5);
 
-    const { theme, toggleTheme } = useContext(ThemeContext);
+    const { storeTheme, storeToggleTheme } = useContext(ThemeContext);
+
+    const dispatch = useDispatch();
+    
+    const storePosts = useSelector((state) => state.postsReducer.posts);
+    const storeLoading = useSelector((state) => state.postsReducer.isLoading)
+    const storeError = useSelector((state) => state.postsReducer.error)
 
     useEffect(() => {
-            try {
-                setLoading(true);
-                fetch('http://jsonplaceholder.typicode.com/posts?_expand=user')
-                .then(response => response.json())
-                .then(result => setPosts(result))
-                setLoading(false);
-            } catch (err) {
-                setLoading(false);
-                setError(err)
-            }
-    }, [])
+        dispatch(fetchPosts())
+    }, [dispatch])
 
     const showMorePosts = () => {
         setSliceCount(sliceCount + 5);
     }
 
     const memoPosts = useMemo(() => {
-       return posts.slice(0, sliceCount);
-    }, [posts, sliceCount]);
+       return storePosts.slice(0, sliceCount);
+    }, [storePosts, sliceCount]);
 
-    if (loading) {
+    if (storeLoading) {
         return <Loader/>
     }
-    if (!loading && error) {
+    if (!storeLoading && storeError) {
         return <Error/>
     }
 
     return (
-        <div className={theme === 'light' ? 'posts-container light' : 'posts-container dark'}>
+        <div className={storeTheme === 'light' ? 'posts-container light' : 'posts-container dark'}>
             <div className="header">
                 <h3 className='header-title'>Posts App</h3>
                 <div className='switch-button'>
-                    <SwitchButton changeTheme={toggleTheme}/>
+                    <SwitchButton changeTheme={storeToggleTheme}/>
                 </div>
             </div>
             <div className='posts'>

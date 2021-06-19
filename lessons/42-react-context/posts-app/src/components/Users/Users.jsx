@@ -1,28 +1,43 @@
-import React, {useState, useEffect, useContext} from 'react'
-import './Users.css'
-import SwitchButton from '../Button/SwitchButton';
+import React, {useEffect, useContext} from 'react'
 import { ThemeContext } from '../../context/ThemeContext';
+import { fetchUsers } from '../../actions/async/getUsers';
+import { useSelector, useDispatch } from 'react-redux';
+import SwitchButton from '../Button/SwitchButton';
+import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
+import './Users.css'
+
 
 const Users = () => {
-    const [users, setUsers] = useState([]);
-    const {theme, toggleTheme} = useContext(ThemeContext);
-  
+    const { storeTheme, storeToggleTheme } = useContext(ThemeContext);
+
+    const dispatch = useDispatch();
+    
+    const storeUsers = useSelector((state) => state.usersReducer.users);
+    const storeLoading = useSelector((state) => state.usersReducer.isLoading)
+    const storeError = useSelector((state) => state.usersReducer.error)
+
     useEffect(() => {
-      fetch("http://jsonplaceholder.typicode.com/users")
-        .then((response) => response.json())
-        .then((result) => setUsers(result));
-    }, []);
+      dispatch(fetchUsers())
+    }, [dispatch])
+
+    if (storeLoading) {
+      return <Loader/>
+  }
+  if (!storeLoading && storeError) {
+      return <Error/>
+  }
   
     return (
-      <div className={theme === 'light' ? 'users-container light' : 'users-container dark'}>
+      <div className={storeTheme === 'light' ? 'users-container light' : 'users-container dark'}>
       <div className='header'>
         <h3 className='header-title'>Posts App</h3>
         <div className='switch-button'>
-          <SwitchButton changeTheme = {toggleTheme}/>
+          <SwitchButton changeTheme = {storeToggleTheme}/>
         </div>
       </div>
-      <div className={theme === 'light' ? 'users light' : 'users dark'}>
-        {users.map((user) => {
+      <div className={storeTheme === 'light' ? 'users light' : 'users dark'}>
+        {storeUsers.map((user) => {
           return <div className='user' key={user.id}>{user.name}</div>;
         })}
       </div>
